@@ -97,6 +97,8 @@
   .field button:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(110,129,87,.4); }
   .field button:disabled { opacity: .6; cursor: progress; }
   .form-note { margin-top: 12px; font-size: 0.82rem; color: var(--ink-soft); }
+  /* Honeypot: off-screen, never shown to humans; bots fill it → rejected server-side. */
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
   .form-msg { margin-top: 14px; font-weight: 600; min-height: 1.4em; }
   .form-msg.ok { color: var(--brand-accent); }
   .form-msg.err { color: var(--risk-high); }
@@ -407,6 +409,7 @@
 
       <!-- Waitlist form -->
       <form class="signup" id="waitlist-form" novalidate>
+        <input class="hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="field">
           <input type="email" id="email" name="EMAIL" placeholder="your@email.com" autocomplete="email" required aria-label="Email address" />
           <button type="submit" id="submit-btn">Become a beta tester</button>
@@ -648,6 +651,7 @@
       <h2>Want to be a beta tester?</h2>
       <p>BirdRisk is coming soon to the App Store for pilots flying Spain and Portugal. Join the list to be among the first to test it — and help shape the app before launch. Leisure, professional and operational crews all welcome.</p>
       <form class="signup" id="waitlist-form-2" novalidate>
+        <input class="hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="field">
           <input type="email" name="EMAIL" placeholder="your@email.com" autocomplete="email" required aria-label="Email address" />
           <button type="submit">Count me in</button>
@@ -693,30 +697,29 @@
 <div class="mcta"><a href="#waitlist">Become a beta tester</a></div>
 
 <script>
-  // TODO(human): paste the Brevo form endpoint here.
-  // Brevo → Contacts → Forms → (your BirdRisk waitlist form) → Share →
-  // copy the "https://sibforms.com/serve/<id>" URL. Leave a double opt-in
-  // enabled on that form so consent is auditable (GDPR). No API key needed.
-  const BREVO_FORM_URL = '';
+  // BirdRisk waitlist endpoint — Firebase Function `birdriskWaitlist` (project
+  // proportione-pt, europe-west1). It adds the email to Brevo list 19 server-side
+  // (the API key lives in Secret Manager, never in the client). CORS is allow-listed
+  // to birdrisk.com, so we use a normal request and can read success/failure.
+  const WAITLIST_URL = 'https://europe-west1-proportione-pt.cloudfunctions.net/birdriskWaitlist';
 
-  // Brevo's field "tag" for the email input on a default sibforms form.
-  const BREVO_EMAIL_FIELD = 'EMAIL';
+  // Epoch ms of page load — sent as a dwell-time signal so the server can drop
+  // sub-3s submits (bots) without a CAPTCHA.
+  const PAGE_LOADED_AT = Date.now();
 
   /**
-   * Sends a waitlist email to our Brevo list.
-   * sibforms is cross-origin and answers with an opaque redirect, so we POST
-   * with mode:'no-cors' (we can't read the response) and treat a completed
-   * request as success. Brevo then handles the double opt-in email itself.
+   * Sends a waitlist signup to our Brevo list via the BirdRisk function.
    * @param {string} email - validated email address
+   * @param {string} hp - honeypot value (empty for humans)
    * @returns {Promise<void>} - resolve on success, throw on failure
    */
-  async function submitToBrevo(email) {
-    if (!BREVO_FORM_URL) throw new Error('Brevo endpoint not configured yet');
-    const body = new URLSearchParams();
-    body.append(BREVO_EMAIL_FIELD, email);
-    body.append('email_address_check', '');   // Brevo honeypot field (anti-spam)
-    body.append('locale', 'en');
-    await fetch(BREVO_FORM_URL, { method: 'POST', mode: 'no-cors', body });
+  async function submitToBrevo(email, hp) {
+    const resp = await fetch(WAITLIST_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, hp, ts: PAGE_LOADED_AT }),
+    });
+    if (!resp.ok) throw new Error('waitlist endpoint returned ' + resp.status);
   }
 
   function isValidEmail(v) {
@@ -729,7 +732,9 @@
       const input = form.querySelector('input[type="email"]');
       const msg = form.querySelector('.form-msg');
       const btn = form.querySelector('button');
+      const hpField = form.querySelector('input[name="hp"]');
       const email = (input.value || '').trim();
+      const hp = hpField ? hpField.value : '';
 
       if (!isValidEmail(email)) {
         if (msg) { msg.textContent = 'Please enter a valid email address.'; msg.className = 'form-msg err'; }
@@ -741,7 +746,7 @@
       if (msg) { msg.textContent = ''; msg.className = 'form-msg'; }
 
       try {
-        await submitToBrevo(email);
+        await submitToBrevo(email, hp);
         if (msg) { msg.textContent = "You're on the list — see you in the sky. 🛩️"; msg.className = 'form-msg ok'; }
         form.reset();
       } catch (err) {
