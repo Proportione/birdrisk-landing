@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>BirdRisk — Know the sky before you fly</title>
-<meta name="description" content="BirdRisk turns bird-strike risk into a single, glanceable score for your route. Join the waitlist for the iPhone and iPad app." />
+<title>BirdRisk — Bird-Strike Risk for VFR &amp; GA Pilots | iPhone</title>
+<meta name="description" content="BirdRisk is the bird-strike risk layer your EFB doesn't have: live risk field and route risk leg by leg, dawn to dusk, with a pre-flight briefing and offline mode. Free now on the App Store for iPhone — Spain &amp; Portugal, more countries coming. It informs; it doesn't advise." />
 
 <!-- Open Graph / social -->
-<meta property="og:title" content="BirdRisk — Know the sky before you fly" />
-<meta property="og:description" content="Real-time bird-strike risk for pilots, on iPhone and iPad. Join the waitlist." />
+<meta property="og:title" content="BirdRisk — the bird-strike risk layer your EFB doesn't have" />
+<meta property="og:description" content="Live bird-strike risk for VFR &amp; GA pilots, on iPhone. Free now on the App Store — Spain &amp; Portugal, more countries coming." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://birdrisk.com" />
 <meta property="og:site_name" content="BirdRisk" />
@@ -17,8 +17,8 @@
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="BirdRisk on iPhone: bird-strike risk over Spain in flight, on terrain and satellite maps." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="BirdRisk — Know the sky before you fly" />
-<meta name="twitter:description" content="Real-time bird-strike risk for pilots, on iPhone and iPad. Join the waitlist." />
+<meta name="twitter:title" content="BirdRisk — the bird-strike risk layer your EFB doesn't have" />
+<meta name="twitter:description" content="Live bird-strike risk for VFR &amp; GA pilots, on iPhone. Free now on the App Store — Spain &amp; Portugal, more countries coming." />
 <meta name="twitter:image" content="https://birdrisk.com/assets/og-cover.jpg" />
 
 <link rel="canonical" href="https://birdrisk.com/" />
@@ -252,6 +252,43 @@
   .gallery .item .cap { margin-top: 14px; font-family: var(--font-data); font-size: 0.78rem; letter-spacing: .04em; color: var(--ink-soft); }
   @media (max-width: 820px) { .gallery .row { grid-template-columns: 1fr; max-width: 290px; gap: 30px; } }
 
+  /* ── App Store primary CTA ── */
+  .appstore-btn { display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+    background: var(--ink); color: #fff; padding: 14px 26px; border-radius: 14px;
+    transition: transform .25s, box-shadow .25s; box-shadow: 0 10px 30px rgba(36,26,24,.25); }
+  .appstore-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(36,26,24,.34); }
+  .appstore-btn svg { width: 28px; height: 28px; }
+  .appstore-btn span { display: flex; flex-direction: column; line-height: 1.05; text-align: left; }
+  .appstore-btn small { font-size: 0.66rem; letter-spacing: .04em; opacity: .85; }
+  .appstore-btn b { font-size: 1.18rem; font-weight: 700; }
+  .cta-microline { margin-top: 12px; font-family: var(--font-data); font-size: .76rem; letter-spacing: .03em; color: var(--ink-soft); }
+  .closing .cta-microline { color: rgba(245,240,230,.82); }
+  .closing .appstore-btn { background: #fff; color: var(--ink); }
+
+  /* Available-now banner */
+  .nowbar { background: var(--brand-accent); color: #fff; text-align: center; font-weight: 700;
+    font-size: .9rem; padding: 9px 16px; }
+  .nowbar a { color: #fff; }
+
+  /* ── Country-demand form ── */
+  .countries { padding: clamp(40px, 6vw, 80px) 0; background: var(--brand-cream); }
+  .countries .box { max-width: 560px; margin-inline: auto; background: #fff; border-radius: 22px;
+    padding: clamp(28px, 4vw, 42px); box-shadow: var(--shadow-soft); border: 1px solid rgba(95,50,47,.08); text-align: center; }
+  .countries h2 { font-size: clamp(1.4rem, 3vw, 2rem); color: var(--brand-primary); letter-spacing: -.02em; }
+  .countries .lead { margin: 12px auto 22px; color: var(--ink-soft); max-width: 46ch; }
+  .countries label.q { display: block; text-align: left; font-weight: 700; color: var(--brand-primary); margin: 4px 0 8px; font-size: .95rem; }
+  .countries select, .countries input[type=email] { width: 100%; padding: 13px 15px; font-size: 1rem; font-family: var(--font-ui);
+    border: 1px solid rgba(95,50,47,.18); border-radius: 12px; background: #fff; color: var(--ink); margin-bottom: 14px; }
+  .countries .optlbl { display: block; text-align: left; font-size: .86rem; color: var(--ink-soft); margin: 2px 0 6px; }
+  .countries button { width: 100%; border: 0; cursor: pointer; padding: 14px; border-radius: 12px; font-weight: 700;
+    font-family: var(--font-ui); font-size: 1rem; color: #fff; background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-light));
+    transition: transform .25s, box-shadow .25s; }
+  .countries button:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(110,129,87,.4); }
+  .countries button:disabled { opacity: .6; cursor: progress; }
+  .countries .microcopy { margin-top: 14px; font-size: .8rem; color: var(--ink-soft); }
+  .countries .form-msg { margin-top: 12px; font-weight: 600; min-height: 1.3em; }
+  .countries .form-msg.ok { color: var(--brand-accent); } .countries .form-msg.err { color: var(--risk-high); }
+
   /* ── Features ── */
   .features { padding: clamp(40px, 6vw, 88px) 0; }
   .features h2 { text-align: center; font-size: clamp(1.6rem, 3.4vw, 2.4rem); color: var(--brand-primary); letter-spacing: -0.02em; }
@@ -430,33 +467,26 @@
       </span>
       BirdRisk
     </div>
-    <a class="cta" href="#waitlist">Join the waitlist</a>
+    <a class="cta" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_nav" target="_blank" rel="noopener" data-store="landing_nav">Download</a>
   </div>
 </header>
+
+<!-- Available-now banner -->
+<div class="nowbar">Now live on the App Store — free for iPhone (iOS&nbsp;17+). <a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_banner" target="_blank" rel="noopener" data-store="landing_banner">Spain &amp; Portugal today →</a></div>
 
 <!-- ───────── Hero ───────── -->
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="eyebrow"><span class="dot"></span> Coming soon to the App Store · iPhone &amp; iPad</span>
-      <h1>Know the sky <em>before</em> you fly.</h1>
-      <p class="sub">BirdRisk turns live bird-strike data into one glanceable risk level for every route across <strong>Spain and Portugal</strong> — so the call is yours, fully informed, before you ever leave the ground.</p>
+      <span class="eyebrow"><span class="dot"></span> Now on the App Store · iPhone · iOS 17+ · Free</span>
+      <h1>The bird-strike risk layer <em>your EFB doesn't have</em>.</h1>
+      <p class="sub">BirdRisk shows the live bird-strike risk over your area and along your route, leg by leg, shifting from dawn to dusk — soaring raptors over midday thermals, migratory corridors at first and last light, wetlands and colonies. <strong>See it before it sees you.</strong> It informs; it doesn't advise. Built for VFR &amp; GA pilots — light aircraft, ULM, autogyro, glider.</p>
 
-      <!-- Waitlist form -->
-      <form class="signup" id="waitlist-form" novalidate>
-        <input class="hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <div class="field">
-          <input type="email" id="email" name="EMAIL" placeholder="your@email.com" autocomplete="email" required aria-label="Email address" />
-          <button type="submit" id="submit-btn">Become a beta tester</button>
-        </div>
-        <p class="form-note"><strong>We're looking for beta testers.</strong> Join the list to be the first to fly with BirdRisk. No spam — one email when it's ready.</p>
-        <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
-      </form>
-
-      <a class="appstore" href="#waitlist" aria-label="Coming soon to the App Store">
+      <a class="appstore-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_hero" target="_blank" rel="noopener" data-store="landing_hero" aria-label="Download BirdRisk on the App Store">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
-        <span><small>Coming soon on the</small><b>App Store</b></span>
+        <span><small>Download on the</small><b>App Store</b></span>
       </a>
+      <p class="cta-microline">iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today · more countries coming</p>
 
       <div class="trust">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Built for pilots</span>
@@ -659,19 +689,19 @@
     <h2>Questions, answered</h2>
     <details open>
       <summary>Which countries does BirdRisk cover?</summary>
-      <p>At launch, BirdRisk covers <strong>Spain and Portugal</strong>. More regions may follow based on demand.</p>
+      <p><strong>Spain and Portugal are live today.</strong> We add countries based on real pilot demand — tell us where you fly next using the form below, and we'll prioritise accordingly.</p>
     </details>
     <details>
       <summary>Does the app tell me whether to fly?</summary>
       <p>No. BirdRisk gives you the risk level and the data behind it, but the go / no-go decision is always yours — that's how aviation works.</p>
     </details>
     <details>
-      <summary>When does it launch?</summary>
-      <p>It's coming soon to the App Store for iPhone and iPad. Join the waitlist and you'll be among the first beta testers.</p>
+      <summary>Is it available now?</summary>
+      <p>Yes — BirdRisk is <strong>live now on the App Store for iPhone</strong> (iOS&nbsp;17+). No account needed: download and open straight to your risk map.</p>
     </details>
     <details>
-      <summary>What will it cost?</summary>
-      <p>A simple yearly subscription with a free trial, so you can try the full app before paying anything.</p>
+      <summary>What does it cost?</summary>
+      <p><strong>Free right now.</strong> BirdRisk Pro will later become an optional yearly subscription with a free trial — no date or price set yet. Download today and fly the full app while it's free.</p>
     </details>
     <details>
       <summary>Who's behind BirdRisk?</summary>
@@ -680,20 +710,47 @@
   </div>
 </section>
 
-<!-- ───────── Closing CTA ───────── -->
-<section class="closing" id="waitlist">
+<!-- ───────── Country demand (secondary capture) ───────── -->
+<section class="countries" id="next-country">
   <div class="wrap">
     <div class="box">
-      <h2>Want to be a beta tester?</h2>
-      <p>BirdRisk is coming soon to the App Store for pilots flying Spain and Portugal. Join the list to be among the first to test it — and help shape the app before launch. Leisure, professional and operational crews all welcome.</p>
-      <form class="signup" id="waitlist-form-2" novalidate>
+      <h2>Not in Spain or Portugal yet?</h2>
+      <p class="lead">BirdRisk is live in Spain and Portugal today. Tell us where you fly next — we add countries based on real pilot demand, so picking yours casts a vote.</p>
+      <form id="country-form" novalidate>
         <input class="hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <div class="field">
-          <input type="email" name="EMAIL" placeholder="your@email.com" autocomplete="email" required aria-label="Email address" />
-          <button type="submit">Count me in</button>
-        </div>
+        <label class="q" for="country">In which country would you like BirdRisk next?</label>
+        <select id="country" name="COUNTRY" required aria-label="Country">
+          <option value="" selected disabled>Choose a country…</option>
+          <option>France</option><option>Italy</option><option>Germany</option>
+          <option>United Kingdom</option><option>Ireland</option><option>Netherlands</option>
+          <option>Belgium</option><option>Luxembourg</option><option>Switzerland</option>
+          <option>Austria</option><option>Poland</option><option>Czechia</option>
+          <option>Slovakia</option><option>Hungary</option><option>Slovenia</option>
+          <option>Croatia</option><option>Greece</option><option>Romania</option>
+          <option>Bulgaria</option><option>Sweden</option><option>Norway</option>
+          <option>Denmark</option><option>Finland</option><option>Iceland</option>
+          <option value="Other">Other (tell us in a reply email)</option>
+        </select>
+        <label class="optlbl" for="country-email">Email (optional) — we'll let you know the day BirdRisk goes live there</label>
+        <input type="email" id="country-email" name="EMAIL" placeholder="your@email.com (optional)" autocomplete="email" aria-label="Email (optional)" />
+        <button type="submit">Register my country</button>
+        <p class="microcopy">Picking a country casts a vote, even without an email. No spam — at most one message, only when BirdRisk reaches your country.</p>
         <p class="form-msg" role="status" aria-live="polite"></p>
       </form>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── Closing CTA ───────── -->
+<section class="closing" id="download">
+  <div class="wrap">
+    <div class="box">
+      <h2>Fly informed. Download BirdRisk — free.</h2>
+      <p>iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today. More countries coming. Free now — BirdRisk Pro arrives later as an optional yearly subscription.</p>
+      <a class="appstore-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_closing" target="_blank" rel="noopener" data-store="landing_closing" aria-label="Download BirdRisk on the App Store">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
+        <span><small>Download on the</small><b>App Store</b></span>
+      </a>
     </div>
   </div>
 </section>
@@ -714,9 +771,10 @@
       </div>
       <div>
         <h4>Product</h4>
-        <a href="#waitlist">Join the waitlist</a>
+        <a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_footer" target="_blank" rel="noopener" data-store="landing_footer">Download on the App Store</a>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
+        <a href="#next-country">Request your country</a>
       </div>
       <div>
         <h4>Company</h4>
@@ -726,12 +784,12 @@
         <a href="/terms">Terms</a>
       </div>
     </div>
-    <p>© 2026 BirdRisk · A project by Proportione · Coming soon to the App Store</p>
+    <p>© 2026 BirdRisk · A project by Proportione · Now on the App Store</p>
   </div>
 </footer>
 
 <!-- Sticky mobile CTA -->
-<div class="mcta"><a href="#waitlist">Become a beta tester</a></div>
+<div class="mcta"><a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_sticky" target="_blank" rel="noopener" data-store="landing_sticky">Download on the App Store</a></div>
 
 <script>
   // BirdRisk waitlist endpoint — Firebase Function `birdriskWaitlist` (project
@@ -744,57 +802,59 @@
   // sub-3s submits (bots) without a CAPTCHA.
   const PAGE_LOADED_AT = Date.now();
 
-  /**
-   * Sends a waitlist signup to our Brevo list via the BirdRisk function.
-   * @param {string} email - validated email address
-   * @param {string} hp - honeypot value (empty for humans)
-   * @returns {Promise<void>} - resolve on success, throw on failure
-   */
-  async function submitToBrevo(email, hp) {
-    const resp = await fetch(WAITLIST_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, hp, ts: PAGE_LOADED_AT }),
-    });
-    if (!resp.ok) throw new Error('waitlist endpoint returned ' + resp.status);
-  }
-
   function isValidEmail(v) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   }
 
-  function wireForm(form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const input = form.querySelector('input[type="email"]');
-      const msg = form.querySelector('.form-msg');
-      const btn = form.querySelector('button');
-      const hpField = form.querySelector('input[name="hp"]');
-      const email = (input.value || '').trim();
-      const hp = hpField ? hpField.value : '';
-
-      if (!isValidEmail(email)) {
-        if (msg) { msg.textContent = 'Please enter a valid email address.'; msg.className = 'form-msg err'; }
-        input.focus();
-        return;
-      }
-
-      if (btn) { btn.disabled = true; }
-      if (msg) { msg.textContent = ''; msg.className = 'form-msg'; }
-
-      try {
-        await submitToBrevo(email, hp);
-        if (msg) { msg.textContent = "You're on the list — see you in the sky. 🛩️"; msg.className = 'form-msg ok'; }
-        form.reset();
-      } catch (err) {
-        if (msg) { msg.textContent = 'Something went wrong. Please try again in a moment.'; msg.className = 'form-msg err'; }
-      } finally {
-        if (btn) { btn.disabled = false; }
-      }
-    });
+  // Lightweight, cookieless analytics: fires to Plausible/GA if present, else no-op.
+  function track(event, props) {
+    try {
+      if (window.plausible) window.plausible(event, { props });
+      else if (window.gtag) window.gtag('event', event, props || {});
+    } catch (_) {}
   }
 
-  document.querySelectorAll('form.signup').forEach(wireForm);
+  // Attribute every App Store click by surface (ct token already on the URL).
+  document.querySelectorAll('a[data-store]').forEach((a) => {
+    a.addEventListener('click', () => track('appstore_click', { location: a.dataset.store }));
+  });
+
+  // Country-demand form: country is the vote (required); email is optional.
+  // POSTs { country, email|null, hp, ts } to the BirdRisk function (Brevo: email + COUNTRY attribute).
+  const cform = document.getElementById('country-form');
+  if (cform) {
+    cform.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = cform.querySelector('.form-msg');
+      const btn = cform.querySelector('button');
+      const country = (cform.querySelector('#country').value || '').trim();
+      const emailRaw = (cform.querySelector('#country-email').value || '').trim();
+      const hp = (cform.querySelector('input[name="hp"]').value || '');
+
+      if (!country) {
+        msg.textContent = 'Please pick a country.'; msg.className = 'form-msg err'; return;
+      }
+      if (emailRaw && !isValidEmail(emailRaw)) {
+        msg.textContent = 'That email looks off — leave it blank or fix it.'; msg.className = 'form-msg err'; return;
+      }
+
+      btn.disabled = true; msg.textContent = ''; msg.className = 'form-msg';
+      // Count the vote client-side first — it's the source of truth for demand
+      // (server persistence of the email is best-effort on top).
+      track('country_vote', { country, has_email: !!emailRaw });
+      try {
+        await fetch(WAITLIST_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ country, email: emailRaw || null, hp, ts: PAGE_LOADED_AT }),
+        });
+      } catch (_) { /* vote already counted client-side */ }
+      msg.textContent = "Got it — your country is on our map. If you left an email, you'll be first to know when BirdRisk lands there. 🛩️";
+      msg.className = 'form-msg ok';
+      cform.reset();
+      btn.disabled = false;
+    });
+  }
 
   /* ── Progressive enhancement: scroll-reveal + sticky mobile CTA ── */
   (function enhance() {
@@ -815,7 +875,7 @@
       });
     });
     document.querySelectorAll(
-      '.features h2, .features .lead, .how h2, .showcase .copy, .showcase .visual, .origin .q, .origin .by, .faq h2, details, .closing .box'
+      '.features h2, .features .lead, .how h2, .showcase .copy, .showcase .visual, .origin .q, .origin .by, .faq h2, details, .countries .box, .closing .box'
     ).forEach(el => el.classList.add('reveal'));
 
     const io = new IntersectionObserver((entries) => {
