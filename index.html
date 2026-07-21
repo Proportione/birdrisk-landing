@@ -4,13 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BirdRisk — Bird-Strike Risk for VFR &amp; GA Pilots | iPhone</title>
-<meta name="description" content="BirdRisk is the bird-strike risk layer your EFB doesn't have: live risk field and route risk leg by leg, dawn to dusk, with a pre-flight briefing and offline mode. Free now on the App Store for iPhone — Spain &amp; Portugal, more countries coming. It informs; it doesn't advise." />
+<meta name="description" content="BirdRisk puts bird strike risk on the map for VFR and GA pilots in Spain and Portugal: risk along your route by hour and altitude, with the data behind it." />
 
 <!-- Open Graph / social -->
 <meta property="og:title" content="BirdRisk — the bird-strike risk layer your EFB doesn't have" />
-<meta property="og:description" content="Live bird-strike risk for VFR &amp; GA pilots, on iPhone. Free now on the App Store — Spain &amp; Portugal, more countries coming." />
+<meta property="og:description" content="Live bird-strike risk for VFR &amp; GA pilots, on iPhone — and every reading shows the data behind it. Free on the App Store. Spain &amp; Portugal live, more countries coming." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://birdrisk.com" />
+<meta property="og:url" content="https://birdrisk.com/" />
+<meta property="og:locale" content="en_GB" />
 <meta property="og:site_name" content="BirdRisk" />
 <meta property="og:image" content="https://birdrisk.com/assets/og-cover.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -18,11 +19,12 @@
 <meta property="og:image:alt" content="BirdRisk on iPhone: bird-strike risk over Spain in flight, on terrain and satellite maps." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="BirdRisk — the bird-strike risk layer your EFB doesn't have" />
-<meta name="twitter:description" content="Live bird-strike risk for VFR &amp; GA pilots, on iPhone. Free now on the App Store — Spain &amp; Portugal, more countries coming." />
+<meta name="twitter:description" content="Live bird-strike risk for VFR &amp; GA pilots, on iPhone — and every reading shows the data behind it. Free on the App Store. Spain &amp; Portugal live, more countries coming." />
 <meta name="twitter:image" content="https://birdrisk.com/assets/og-cover.jpg" />
 
 <link rel="canonical" href="https://birdrisk.com/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preload" as="image" type="image/webp" href="/assets/flight-poster.webp" media="(min-width: 821px)" />
 <meta name="theme-color" content="#5F322F" />
 
 <!-- Publytics — cookieless, privacy-first analytics (no consent banner needed) -->
@@ -51,6 +53,7 @@
     --risk-high: #ea580c;
     --risk-medium: #ca8a04;
     --risk-low: #16a34a;
+    --risk-high-on-panel: #f97316;  /* variante AA de --risk-high sobre --map-panel: 5,22:1 */
 
     --font-ui: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-data: 'B612 Mono', 'SF Mono', 'Fira Code', monospace;
@@ -61,6 +64,20 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+
+  /* Foco visible de marca — WCAG 2.4.7 */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px solid var(--brand-primary);
+    outline-offset: 3px;
+  }
+  /* El input del formulario de país lleva outline:0 con mayor especificidad (.field input) */
+  .field input:focus-visible {
+    outline: 3px solid var(--brand-primary);
+    outline-offset: 2px;
+  }
   body {
     font-family: var(--font-ui);
     color: var(--ink);
@@ -101,7 +118,7 @@
   .signup { margin-top: 30px; max-width: 460px; }
   .field { display: flex; gap: 10px; background: #fff; padding: 7px; border-radius: 999px;
     box-shadow: var(--shadow-soft); border: 1px solid rgba(95,50,47,.08); }
-  .field input { flex: 1; border: 0; outline: 0; padding: 12px 16px; font-size: 1rem; font-family: var(--font-ui);
+  .field input { flex: 1; border: 0; padding: 12px 16px; font-size: 1rem; font-family: var(--font-ui);
     background: transparent; color: var(--ink); border-radius: 999px; }
   .field button { border: 0; cursor: pointer; padding: 12px 24px; border-radius: 999px; font-weight: 700;
     font-family: var(--font-ui); font-size: 0.98rem; color: #fff;
@@ -290,6 +307,18 @@
   .countries button:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(110,129,87,.4); }
   .countries button:disabled { opacity: .6; cursor: progress; }
   .countries .microcopy { margin-top: 14px; font-size: .8rem; color: var(--ink-soft); }
+  /* El email solo se pide cuando ya hay voto: el select es :invalid hasta elegir país.
+     Se gatea también la cláusula de email de la microcopy para que la primera
+     impresión no mencione un campo que no está en pantalla. Reservamos la altura
+     del bloque para que el botón no salte bajo el dedo al cerrar el picker. */
+  .countries .optlbl,
+  .countries #country-email,
+  .countries .microcopy .mc-email { transition: opacity .18s ease; }
+  .countries #country:invalid ~ .optlbl,
+  .countries #country:invalid ~ #country-email {
+    opacity: 0; visibility: hidden; pointer-events: none;
+  }
+  .countries #country:invalid ~ .microcopy .mc-email { display: none; }
   .countries .form-msg { margin-top: 12px; font-weight: 600; min-height: 1.3em; }
   .countries .form-msg.ok { color: var(--brand-accent); } .countries .form-msg.err { color: var(--risk-high); }
 
@@ -465,7 +494,7 @@
     gap: 12px; padding-bottom: 12px; margin-bottom: 12px;
     border-bottom: 1px solid rgba(226,232,240,.16);
   }
-  .evidence .receipt .r-level { font-size: 1.05rem; font-weight: 700; color: var(--risk-high); letter-spacing: .02em; }
+  .evidence .receipt .r-level { font-size: 1.05rem; font-weight: 700; color: var(--risk-high-on-panel); letter-spacing: .02em; }
   .evidence .receipt .r-scale { font-size: .74rem; color: #94a3b8; }
   .evidence .receipt dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; margin: 0; }
   .evidence .receipt dt { font-size: .74rem; color: #94a3b8; text-transform: uppercase; letter-spacing: .06em; }
@@ -496,6 +525,21 @@
   "name": "BirdRisk: Bird Strike Risk",
   "alternateName": "BirdRisk",
   "applicationCategory": "TravelApplication",
+  "applicationSubCategory": "Aviation Information",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "General aviation and VFR pilots",
+    "geographicArea": [
+      { "@type": "Country", "name": "Spain" },
+      { "@type": "Country", "name": "Portugal" }
+    ]
+  },
+  "keywords": "bird strike risk, bird strike aviation, wildlife hazard, VFR flight, general aviation, bird activity map",
+  "screenshot": [
+    "https://birdrisk.com/assets/flight-risk-madrid-1080.webp",
+    "https://birdrisk.com/assets/sat-risk-madrid-1080.webp",
+    "https://birdrisk.com/assets/flight-pirineo-1080.webp"
+  ],
   "operatingSystem": "iOS 17.0 or later",
   "url": "https://birdrisk.com/",
   "installUrl": "https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164",
@@ -509,8 +553,10 @@
     "availability": "https://schema.org/InStock"
   },
   "publisher": {
+    "@id": "https://proportione.com/#organization",
     "@type": "Organization",
-    "name": "Proportione, LDA",
+    "name": "Proportione",
+    "legalName": "Proportione, LDA",
     "url": "https://proportione.com/"
   },
   "featureList": [
@@ -518,11 +564,103 @@
     "Route planning drawn on the map, with editable waypoints",
     "Evidence receipt for every reading: sighting count, date and source",
     "Declared spatial resolution for each risk cell",
+    "Areas without data shown as no data, never as low risk",
+    "Missing hazard layer flagged, with the reading marked as a lower bound",
     "Aerodromes on the map with hourly risk trend",
     "Home Screen widget with current risk",
     "Offline mode and pre-flight briefing"
   ],
   "countriesSupported": ["ES", "PT"]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://proportione.com/#organization",
+  "name": "Proportione",
+  "legalName": "Proportione, LDA",
+  "url": "https://proportione.com/",
+  "sameAs": [
+    "https://www.linkedin.com/company/proportione/",
+    "https://github.com/Proportione"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua D. Jorge de Lencastre 10A",
+    "addressLocality": "Aveiro",
+    "addressRegion": "Aveiro",
+    "postalCode": "3810",
+    "addressCountry": "PT"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://birdrisk.com/#faq",
+  "inLanguage": "en",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a bird strike?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A bird strike is a collision between an aircraft and a bird in flight. In general aviation most reported strikes happen at low level \u2014 take-off, approach and low-level cruise \u2014 and bird movement is typically highest around dawn and dusk. BirdRisk shows where and when that exposure is highest along the route you fly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does bird strike risk change with the season in Spain and Portugal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Over Iberia the picture shifts through the year: migratory passage in spring and autumn, griffon vultures and other soaring raptors riding midday thermals in the warm months, wintering flocks over wetlands and reservoirs. BirdRisk doesn't work from a seasonal average: it reads the recent sightings recorded in the cell you tap \u2014 with their date and source \u2014 and opens the hourly trend behind them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which countries does BirdRisk cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Spain and Portugal are live today. We add countries based on real pilot demand \u2014 tell us where you fly next using the form below, and we'll prioritise accordingly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the app tell me whether to fly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. BirdRisk gives you the risk level and the data behind it, but the go / no-go decision is always yours \u2014 that's how aviation works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it available now?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 BirdRisk is live now on the App Store for iPhone (iOS 17+). No account needed: download and open straight to your risk map."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free right now. BirdRisk Pro will later become an optional yearly subscription with a free trial \u2014 no date or price set yet. Download today and fly the full app while it's free."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who's behind BirdRisk?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BirdRisk is a project by Proportione, built on its work in geospatial aviation-safety intelligence."
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -539,7 +677,7 @@
       </span>
       BirdRisk
     </div>
-    <a class="cta" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_nav" target="_blank" rel="noopener" data-store="landing_nav">Download</a>
+    <a class="cta" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_nav" target="_blank" rel="noopener" data-store="landing_nav">Download — free now</a>
   </div>
 </header>
 
@@ -552,13 +690,14 @@
     <div>
       <span class="eyebrow"><span class="dot"></span> Now on the App Store · iPhone · iOS 17+ · Free</span>
       <h1>The bird-strike risk layer <em>your EFB doesn't have</em>.</h1>
-      <p class="sub">BirdRisk shows the live bird-strike risk over your area and along your route, leg by leg, shifting from dawn to dusk — soaring raptors over midday thermals, migratory corridors at first and last light, wetlands and colonies. <strong>See it before it sees you.</strong> It informs; it doesn't advise. Built for VFR &amp; GA pilots — light aircraft, ULM, autogyro, glider.</p>
+      <p class="sub">BirdRisk shows the live bird-strike risk over your area and along your route, leg by leg, shifting from dawn to dusk — soaring raptors over midday thermals, migratory corridors at first and last light, wetlands and colonies. <strong>See it before it sees you.</strong> It informs; it doesn't advise. Built for VFR &amp; GA pilots — light aircraft, ULM, autogyro, glider. <a href="#evidence">See what a risk reading rests on</a>.</p>
 
+      <p class="cta-microline" style="margin-top:0;margin-bottom:14px;">Every risk reading shows its receipt — sightings in the cell, date of the latest, and source.</p>
       <a class="appstore-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_hero" target="_blank" rel="noopener" data-store="landing_hero" aria-label="Download BirdRisk on the App Store">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
         <span><small>Download on the</small><b>App Store</b></span>
       </a>
-      <p class="cta-microline">iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today · more countries coming</p>
+      <p class="cta-microline">No account needed to open the map · iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today · more countries coming</p>
 
       <div class="trust">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Built for pilots</span>
@@ -572,7 +711,7 @@
       <div class="phone front">
         <span class="notch"></span>
         <div class="screen">
-          <video autoplay muted loop playsinline preload="metadata" poster="/assets/flight-poster.webp"
+          <video id="hero-video" muted loop playsinline preload="none" poster="/assets/flight-poster.webp"
                  aria-label="BirdRisk in flight over the Pyrenees, showing live aircraft position over the terrain with bird-strike risk and an altitude band selector">
             <source src="/assets/birdrisk-flight.mp4" type="video/mp4" />
           </video>
@@ -604,7 +743,7 @@
 <section class="features">
   <div class="wrap">
     <h2>One score. Every bird. Before and during the flight.</h2>
-    <p class="lead">Built for pilots flying Spain and Portugal, BirdRisk does one thing well: it tells you how risky birds make your route — on the ground when you plan it, and in the air as you fly it — clearly enough to glance at on a kneeboard.</p>
+    <p class="lead">Built for pilots flying Spain and Portugal, BirdRisk does one thing well: it tells you how risky birds make your route — on the ground when you plan it, and in the air as you fly it — clearly enough to glance at on a kneeboard. Every reading <a href="#evidence">shows the bird sightings behind it</a> — how many are recent in that cell, when the latest one was recorded, and which open database it came from.</p>
     <div class="grid3">
       <div class="card">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 9 3l6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></svg></div>
@@ -658,6 +797,14 @@
         <li>AEMET</li>
         <li>ENAIRE</li>
       </ul>
+    </div>
+
+    <div style="margin-top:34px; text-align:center">
+      <a class="appstore-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_evidence" target="_blank" rel="noopener" data-store="landing_evidence" aria-label="Download BirdRisk on the App Store">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
+        <span><small>Download on the</small><b>App Store</b></span>
+      </a>
+      <p class="cta-microline">Free for iPhone · iOS&nbsp;17+ · Spain &amp; Portugal</p>
     </div>
   </div>
 </section>
@@ -797,6 +944,14 @@
   <div class="wrap">
     <h2>Questions, answered</h2>
     <details open>
+      <summary>What is a bird strike?</summary>
+      <p>A bird strike is a collision between an aircraft and a bird in flight. In general aviation most reported strikes happen at low level — take-off, approach and low-level cruise — and bird movement is typically highest around dawn and dusk. BirdRisk shows where and when that exposure is highest along the route you fly.</p>
+    </details>
+    <details>
+      <summary>Does bird strike risk change with the season in Spain and Portugal?</summary>
+      <p>Yes. Over Iberia the picture shifts through the year: migratory passage in spring and autumn, griffon vultures and other soaring raptors riding midday thermals in the warm months, wintering flocks over wetlands and reservoirs. BirdRisk doesn't work from a seasonal average: it reads the recent sightings recorded in the cell you tap — with their date and source — and opens the hourly trend behind them.</p>
+    </details>
+    <details>
       <summary>Which countries does BirdRisk cover?</summary>
       <p><strong>Spain and Portugal are live today.</strong> We add countries based on real pilot demand — tell us where you fly next using the form below, and we'll prioritise accordingly.</p>
     </details>
@@ -842,8 +997,8 @@
         </select>
         <label class="optlbl" for="country-email">Email (optional) — we'll let you know the day BirdRisk goes live there</label>
         <input type="email" id="country-email" name="EMAIL" placeholder="your@email.com (optional)" autocomplete="email" aria-label="Email (optional)" />
-        <button type="submit">Register my country</button>
-        <p class="microcopy">Picking a country casts a vote, even without an email. No spam — at most one message, only when BirdRisk reaches your country.</p>
+        <button type="submit">Cast my vote</button>
+        <p class="microcopy"><span class="mc-vote">Picking a country casts a vote — one tap, nothing else needed.</span><span class="mc-email"> The email is optional: no spam, at most one message, only when BirdRisk reaches your country.</span></p>
         <p class="form-msg" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -854,8 +1009,9 @@
 <section class="closing" id="download">
   <div class="wrap">
     <div class="box">
-      <h2>Fly informed. Download BirdRisk — free.</h2>
-      <p>iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today. More countries coming. Free now — BirdRisk Pro arrives later as an optional yearly subscription.</p>
+      <h2>Nothing you have to take on trust. Download BirdRisk — free.</h2>
+      <p>Every risk reading opens its receipt: sightings in the cell, date of the latest, source, and the scale it is claiming — a grid cell about 11 km across. When a hazard layer can't load, the app says so and the level shown is a lower bound.</p>
+      <p class="cta-microline">iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today · more countries coming · free now, BirdRisk Pro arrives later as an optional yearly subscription.</p>
       <a class="appstore-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_closing" target="_blank" rel="noopener" data-store="landing_closing" aria-label="Download BirdRisk on the App Store">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
         <span><small>Download on the</small><b>App Store</b></span>
@@ -899,7 +1055,7 @@
 </footer>
 
 <!-- Sticky mobile CTA -->
-<div class="mcta"><a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_sticky" target="_blank" rel="noopener" data-store="landing_sticky">Download on the App Store</a></div>
+<div class="mcta"><a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_sticky" target="_blank" rel="noopener" data-store="landing_sticky">Get BirdRisk free now — see the data behind every reading</a></div>
 
 <script>
   // BirdRisk waitlist endpoint — Firebase Function `birdriskWaitlist` (project
@@ -960,7 +1116,7 @@
           body: JSON.stringify({ country, email: emailRaw || null, hp, ts: PAGE_LOADED_AT }),
         });
       } catch (_) { /* vote already counted client-side */ }
-      msg.textContent = "Got it — your country is on our map. If you left an email, you'll be first to know when BirdRisk lands there. 🛩️";
+      msg.textContent = "Counted — your country is now in the tally. If you left an email, you'll hear from us the day BirdRisk covers it.";
       msg.className = 'form-msg ok';
       cform.reset();
       btn.disabled = false;
@@ -1003,6 +1159,20 @@
       }, { threshold: 0 }).observe(hero);
     }
   })();
+</script>
+
+<script>
+(function () {
+  var v = document.getElementById('hero-video');
+  if (!v) return;
+  var c = navigator.connection || {};
+  if (c.saveData) return;
+  if (/(^|-)(2g|slow-2g)$/.test(c.effectiveType || '')) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  v.preload = 'auto';
+  var p = v.play();
+  if (p && p.catch) p.catch(function () {});
+})();
 </script>
 </body>
 </html>
