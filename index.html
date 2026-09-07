@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>BirdRisk — Bird-Strike Risk for VFR &amp; GA Pilots | iPhone</title>
-<meta name="description" content="BirdRisk puts bird strike risk on the map for VFR and GA pilots in Spain and Portugal: risk along your route by hour and altitude, with the data behind it." />
+<title>BirdRisk — Bird-Strike Risk for VFR &amp; GA Pilots | Android &amp; iPhone</title>
+<meta name="description" content="BirdRisk puts bird-strike risk on the map for VFR and GA pilots in Spain and Portugal. Free on Google Play for Android and the App Store for iPhone." />
 
 <!-- Open Graph / social -->
 <meta property="og:title" content="BirdRisk — the bird-strike risk layer your EFB doesn't have" />
-<meta property="og:description" content="Live bird-strike risk for VFR &amp; GA pilots, on iPhone — and every reading shows the data behind it. Free on the App Store. Spain &amp; Portugal live, more countries coming." />
+<meta property="og:description" content="Live bird-strike risk for VFR &amp; GA pilots on Android and iPhone — and every reading shows the data behind it. Free in Spain &amp; Portugal." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://birdrisk.com/" />
 <meta property="og:locale" content="en_GB" />
@@ -16,10 +16,10 @@
 <meta property="og:image" content="https://birdrisk.com/assets/og-cover.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="BirdRisk on iPhone: bird-strike risk over Spain in flight, on terrain and satellite maps." />
+<meta property="og:image:alt" content="BirdRisk on a phone: bird-strike risk over Spain in flight, on terrain and satellite maps." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="BirdRisk — the bird-strike risk layer your EFB doesn't have" />
-<meta name="twitter:description" content="Live bird-strike risk for VFR &amp; GA pilots, on iPhone — and every reading shows the data behind it. Free on the App Store. Spain &amp; Portugal live, more countries coming." />
+<meta name="twitter:description" content="Live bird-strike risk for VFR &amp; GA pilots on Android and iPhone — and every reading shows the data behind it. Free in Spain &amp; Portugal." />
 <meta name="twitter:image" content="https://birdrisk.com/assets/og-cover.jpg" />
 
 <link rel="canonical" href="https://birdrisk.com/" />
@@ -273,18 +273,21 @@
   .gallery .item .cap { margin-top: 14px; font-family: var(--font-data); font-size: 0.78rem; letter-spacing: .04em; color: var(--ink-soft); }
   @media (max-width: 820px) { .gallery .row { grid-template-columns: 1fr; max-width: 290px; gap: 30px; } }
 
-  /* ── App Store primary CTA ── */
-  .appstore-btn { display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+  /* ── App-store CTAs ── */
+  .store-actions { display: flex; align-items: stretch; flex-wrap: wrap; gap: 10px; }
+  .store-actions.center { justify-content: center; }
+  .store-btn { display: inline-flex; align-items: center; gap: 12px; min-width: 190px; text-decoration: none;
     background: var(--ink); color: #fff; padding: 14px 26px; border-radius: 14px;
     transition: transform .25s, box-shadow .25s; box-shadow: 0 10px 30px rgba(36,26,24,.25); }
-  .appstore-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(36,26,24,.34); }
-  .appstore-btn svg { width: 28px; height: 28px; }
-  .appstore-btn span { display: flex; flex-direction: column; line-height: 1.05; text-align: left; }
-  .appstore-btn small { font-size: 0.66rem; letter-spacing: .04em; opacity: .85; }
-  .appstore-btn b { font-size: 1.18rem; font-weight: 700; }
+  .store-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(36,26,24,.34); }
+  .store-btn svg { width: 28px; height: 28px; flex: none; }
+  .store-btn span { display: flex; flex-direction: column; line-height: 1.05; text-align: left; }
+  .store-btn small { font-size: 0.66rem; letter-spacing: .04em; opacity: .85; }
+  .store-btn b { font-size: 1.18rem; font-weight: 700; }
+  .store-btn.google-play { background: #17231b; }
   .cta-microline { margin-top: 12px; font-family: var(--font-data); font-size: .76rem; letter-spacing: .03em; color: var(--ink-soft); }
   .closing .cta-microline { color: rgba(245,240,230,.82); }
-  .closing .appstore-btn { background: #fff; color: var(--ink); }
+  .closing .store-btn { background: #fff; color: var(--ink); }
 
   /* Available-now banner */
   .nowbar { background: var(--brand-accent); color: #fff; text-align: center; font-weight: 700;
@@ -466,6 +469,11 @@
     .showcase.rev .copy { order: 0; }
   }
 
+  @media (max-width: 520px) {
+    .store-actions { display: grid; grid-template-columns: 1fr; }
+    .store-btn { min-width: 0; width: 100%; }
+  }
+
   /* ── Keyframes ── */
   @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
   @keyframes pan { from { transform: translate(0,0); } to { transform: translate(34px, 34px); } }
@@ -540,9 +548,12 @@
     "https://birdrisk.com/assets/sat-risk-madrid-1080.webp",
     "https://birdrisk.com/assets/flight-pirineo-1080.webp"
   ],
-  "operatingSystem": "iOS 17.0 or later",
+  "operatingSystem": "Android and iOS 17.0 or later",
   "url": "https://birdrisk.com/",
-  "installUrl": "https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164",
+  "downloadUrl": [
+    "https://play.google.com/store/apps/details?id=com.birdrisk.app",
+    "https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164"
+  ],
   "description": "BirdRisk puts bird-strike risk on the map — the layer your EFB doesn't have. It turns open and scientific data into a single, glanceable bird-strike risk field over the terrain you fly, and shows the evidence behind every reading. It informs; it does not advise.",
   "inLanguage": "en",
   "isAccessibleForFree": true,
@@ -641,7 +652,7 @@
       "name": "Is it available now?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes \u2014 BirdRisk is live now on the App Store for iPhone (iOS 17+). No account needed: download and open straight to your risk map."
+        "text": "Yes \u2014 BirdRisk is live now on Google Play for Android and on the App Store for iPhone (iOS 17+). No account needed: download and open straight to your risk map."
       }
     },
     {
@@ -677,27 +688,33 @@
       </span>
       BirdRisk
     </div>
-    <a class="cta" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_nav" target="_blank" rel="noopener" data-store="landing_nav">Download — free now</a>
+    <a class="cta" href="#download">Download — free now</a>
   </div>
 </header>
 
 <!-- Available-now banner -->
-<div class="nowbar">Now live on the App Store — free for iPhone (iOS&nbsp;17+). <a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_banner" target="_blank" rel="noopener" data-store="landing_banner">Spain &amp; Portugal today →</a></div>
+<div class="nowbar"><strong>New: BirdRisk is now on Android.</strong> <a href="https://play.google.com/store/apps/details?id=com.birdrisk.app" target="_blank" rel="noopener" data-store="landing_banner" data-platform="android">Get it free on Google Play →</a></div>
 
 <!-- ───────── Hero ───────── -->
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="eyebrow"><span class="dot"></span> Now on the App Store · iPhone · iOS 17+ · Free</span>
+      <span class="eyebrow"><span class="dot"></span> New on Google Play · Also on the App Store · Free</span>
       <h1>The bird-strike risk layer <em>your EFB doesn't have</em>.</h1>
       <p class="sub">BirdRisk shows the live bird-strike risk over your area and along your route, leg by leg, shifting from dawn to dusk — soaring raptors over midday thermals, migratory corridors at first and last light, wetlands and colonies. <strong>See it before it sees you.</strong> It informs; it doesn't advise. Built for VFR &amp; GA pilots — light aircraft, ULM, autogyro, glider. <a href="#evidence">See what a risk reading rests on</a>.</p>
 
       <p class="cta-microline" style="margin-top:0;margin-bottom:14px;">Every risk reading shows its receipt — sightings in the cell, date of the latest, and source.</p>
-      <a class="appstore-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_hero" target="_blank" rel="noopener" data-store="landing_hero" aria-label="Download BirdRisk on the App Store">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
-        <span><small>Download on the</small><b>App Store</b></span>
-      </a>
-      <p class="cta-microline">No account needed to open the map · iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today · more countries coming</p>
+      <div class="store-actions">
+        <a class="store-btn google-play" href="https://play.google.com/store/apps/details?id=com.birdrisk.app" target="_blank" rel="noopener" data-store="landing_hero" data-platform="android" aria-label="Get BirdRisk on Google Play">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.7 2.7c-.3.4-.5.9-.5 1.6v15.4c0 .6.2 1.2.5 1.6l8.8-9.3-8.8-9.3Z" fill="#32A852"/><path d="m15.4 9-2.9 3 2.9 3 3.9-2.2c1.1-.6 1.1-1.6 0-2.2L15.4 9Z" fill="#F9BA15"/><path d="m3.7 2.7 11.7 6.5-2.9 3L3.7 2.7Z" fill="#3D8BFD"/><path d="m3.7 21.3 11.7-6.5-2.9-3-8.8 9.5Z" fill="#E94235"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+        <a class="store-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_hero" target="_blank" rel="noopener" data-store="landing_hero" data-platform="apple" aria-label="Download BirdRisk on the App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
+          <span><small>Download on the</small><b>App Store</b></span>
+        </a>
+      </div>
+      <p class="cta-microline">No account needed to open the map · Android &amp; iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today · more countries coming</p>
 
       <div class="trust">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Built for pilots</span>
@@ -800,11 +817,17 @@
     </div>
 
     <div style="margin-top:34px; text-align:center">
-      <a class="appstore-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_evidence" target="_blank" rel="noopener" data-store="landing_evidence" aria-label="Download BirdRisk on the App Store">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
-        <span><small>Download on the</small><b>App Store</b></span>
-      </a>
-      <p class="cta-microline">Free for iPhone · iOS&nbsp;17+ · Spain &amp; Portugal</p>
+      <div class="store-actions center">
+        <a class="store-btn google-play" href="https://play.google.com/store/apps/details?id=com.birdrisk.app" target="_blank" rel="noopener" data-store="landing_evidence" data-platform="android" aria-label="Get BirdRisk on Google Play">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.7 2.7c-.3.4-.5.9-.5 1.6v15.4c0 .6.2 1.2.5 1.6l8.8-9.3-8.8-9.3Z" fill="#32A852"/><path d="m15.4 9-2.9 3 2.9 3 3.9-2.2c1.1-.6 1.1-1.6 0-2.2L15.4 9Z" fill="#F9BA15"/><path d="m3.7 2.7 11.7 6.5-2.9 3L3.7 2.7Z" fill="#3D8BFD"/><path d="m3.7 21.3 11.7-6.5-2.9-3-8.8 9.5Z" fill="#E94235"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+        <a class="store-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_evidence" target="_blank" rel="noopener" data-store="landing_evidence" data-platform="apple" aria-label="Download BirdRisk on the App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
+          <span><small>Download on the</small><b>App Store</b></span>
+        </a>
+      </div>
+      <p class="cta-microline">Free for Android &amp; iPhone · iOS&nbsp;17+ · Spain &amp; Portugal</p>
     </div>
   </div>
 </section>
@@ -961,7 +984,7 @@
     </details>
     <details>
       <summary>Is it available now?</summary>
-      <p>Yes — BirdRisk is <strong>live now on the App Store for iPhone</strong> (iOS&nbsp;17+). No account needed: download and open straight to your risk map.</p>
+      <p>Yes — BirdRisk is live now on <a href="https://play.google.com/store/apps/details?id=com.birdrisk.app" target="_blank" rel="noopener" data-store="landing_faq" data-platform="android"><strong>Google Play for Android</strong></a> and on the <a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_faq" target="_blank" rel="noopener" data-store="landing_faq" data-platform="apple"><strong>App Store for iPhone</strong></a> (iOS&nbsp;17+). No account needed: download and open straight to your risk map.</p>
     </details>
     <details>
       <summary>What does it cost?</summary>
@@ -1011,11 +1034,17 @@
     <div class="box">
       <h2>Nothing you have to take on trust. Download BirdRisk — free.</h2>
       <p>Every risk reading opens its receipt: sightings in the cell, date of the latest, source, and the scale it is claiming — a grid cell about 11 km across. When a hazard layer can't load, the app says so and the level shown is a lower bound.</p>
-      <p class="cta-microline">iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today · more countries coming · free now, BirdRisk Pro arrives later as an optional yearly subscription.</p>
-      <a class="appstore-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_closing" target="_blank" rel="noopener" data-store="landing_closing" aria-label="Download BirdRisk on the App Store">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
-        <span><small>Download on the</small><b>App Store</b></span>
-      </a>
+      <p class="cta-microline">Android &amp; iPhone · iOS&nbsp;17+ · Spain &amp; Portugal live today · more countries coming · free now, BirdRisk Pro arrives later as an optional yearly subscription.</p>
+      <div class="store-actions center">
+        <a class="store-btn google-play" href="https://play.google.com/store/apps/details?id=com.birdrisk.app" target="_blank" rel="noopener" data-store="landing_closing" data-platform="android" aria-label="Get BirdRisk on Google Play">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.7 2.7c-.3.4-.5.9-.5 1.6v15.4c0 .6.2 1.2.5 1.6l8.8-9.3-8.8-9.3Z" fill="#32A852"/><path d="m15.4 9-2.9 3 2.9 3 3.9-2.2c1.1-.6 1.1-1.6 0-2.2L15.4 9Z" fill="#F9BA15"/><path d="m3.7 2.7 11.7 6.5-2.9 3L3.7 2.7Z" fill="#3D8BFD"/><path d="m3.7 21.3 11.7-6.5-2.9-3-8.8 9.5Z" fill="#E94235"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+        <a class="store-btn" href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_closing" target="_blank" rel="noopener" data-store="landing_closing" data-platform="apple" aria-label="Download BirdRisk on the App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 1.7c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4ZM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.8-.5 11.4 1.9 8.6c1-1.3 2.5-2 4-2 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.3 0 2.7.7 3.7 2-3.3 1.8-2.7 6.5.0 8.7Z"/></svg>
+          <span><small>Download on the</small><b>App Store</b></span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1036,7 +1065,8 @@
       </div>
       <div>
         <h4>Product</h4>
-        <a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_footer" target="_blank" rel="noopener" data-store="landing_footer">Download on the App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.birdrisk.app" target="_blank" rel="noopener" data-store="landing_footer" data-platform="android">Get it on Google Play</a>
+        <a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_footer" target="_blank" rel="noopener" data-store="landing_footer" data-platform="apple">Download on the App Store</a>
         <a href="#evidence">See the evidence</a>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
@@ -1050,12 +1080,12 @@
         <a href="/terms">Terms</a>
       </div>
     </div>
-    <p>© 2026 BirdRisk · A project by Proportione · Now on the App Store</p>
+    <p>© 2026 BirdRisk · A project by Proportione · Now on Google Play and the App Store</p>
   </div>
 </footer>
 
 <!-- Sticky mobile CTA -->
-<div class="mcta"><a href="https://apps.apple.com/es/app/birdrisk-bird-strike-risk/id6781404164?ct=landing_sticky" target="_blank" rel="noopener" data-store="landing_sticky">Get BirdRisk free now — see the data behind every reading</a></div>
+<div class="mcta"><a href="#download">Get BirdRisk free — Android &amp; iPhone</a></div>
 
 <script>
   // BirdRisk waitlist endpoint — Firebase Function `birdriskWaitlist` (project
@@ -1081,9 +1111,15 @@
     } catch (_) {}
   }
 
-  // Attribute every App Store click by surface (ct token already on the URL).
+  // Attribute store clicks by surface and platform. Apple keeps its historical
+  // event name so existing dashboards remain continuous.
   document.querySelectorAll('a[data-store]').forEach((a) => {
-    a.addEventListener('click', () => track('appstore_click', { location: a.dataset.store }));
+    a.addEventListener('click', () => {
+      const platform = a.dataset.platform || 'apple';
+      const props = { location: a.dataset.store, platform };
+      track('store_click', props);
+      track(platform === 'android' ? 'playstore_click' : 'appstore_click', props);
+    });
   });
 
   // Country-demand form: country is the vote (required); email is optional.
